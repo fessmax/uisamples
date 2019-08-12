@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#ff00ff</color>
+
+    <color name="til_bg_focused">#FFFFFF</color>
+    <color name="til_bg_unfocused">#CCFFFFFF</color>
+
+    <color name="til_hint">#7c7f84</color>
+    <color name="til_text">#232930</color>
+
+    <color name="red">#ff0000</color>
+    <color name="green">#00ff00</color>
+    <color name="blue">#0000ff</color>
+    <color name="black">#000000</color>
+    <color name="transparent">#00ffffff</color>
+
+</resources>

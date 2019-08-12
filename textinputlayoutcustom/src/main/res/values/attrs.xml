@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TextInputLayoutCustom">
+        <attr name="hintTextAppearance" format="integer"/>
+        <attr name="errorTextAppearance" format="integer"/>
+        <attr name="backgroundNormal" format="integer"/>
+        <attr name="backgroundError" format="integer"/>
+        <attr name="hintFakeTextAppearance" format="integer"/>
+        <attr name="errorDrawable" format="integer"/>
+    </declare-styleable>
+</resources>

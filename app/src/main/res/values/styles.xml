@@ -1,0 +1,43 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/red</item>
+    </style>
+
+
+    <style name="Til">
+        <item name="hintTextAppearance">@style/Til.HintTextAppearance</item>
+        <item name="hintFakeTextAppearance">@style/Til.HintFakeTextAppearance</item>
+        <item name="android:textAppearance">@style/Til.TextAppearance</item>
+        <item name="errorTextAppearance">@style/Til.ErrorTextAppearance</item>
+        <item name="backgroundNormal">@drawable/til_background</item>
+        <item name="backgroundError">@drawable/til_background_error</item>
+        <item name="colorControlNormal">@android:color/transparent</item>
+        <item name="android:textCursorDrawable">@drawable/black_cursor</item>
+        <item name="errorDrawable">@drawable/ic_til_error</item>
+    </style>
+
+    <style name="Til.TextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/til_text</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="Til.ErrorTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/red</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="Til.HintTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/til_hint</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="Til.HintFakeTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/til_hint</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+</resources>

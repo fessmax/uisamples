@@ -14,6 +14,8 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.os.Build
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.util.TypedValue
 import android.widget.TextView
@@ -228,6 +230,18 @@ class TextInputLayoutCustom : LinearLayout {
 
         animatorSet.start()
 
+    }
+
+    fun addTextChangedListener(watcher: TextWatcher) {
+        til_edit_text.addTextChangedListener(watcher)
+    }
+
+    fun removeTextChangedListener(watcher: TextWatcher) {
+        til_edit_text.removeTextChangedListener(watcher)
+    }
+
+    fun getText(): String {
+        return til_edit_text.text.toString()
     }
 
     private fun setTextCursorDrawable(resId: Int) {

@@ -10,10 +10,10 @@
 
 
     <style name="Til">
-        <item name="hintTextAppearance">@style/Til.HintTextAppearance</item>
+        <item name="hintCustomTextAppearance">@style/Til.HintTextAppearance</item>
         <item name="hintFakeTextAppearance">@style/Til.HintFakeTextAppearance</item>
         <item name="android:textAppearance">@style/Til.TextAppearance</item>
-        <item name="errorTextAppearance">@style/Til.ErrorTextAppearance</item>
+        <item name="errorCustomTextAppearance">@style/Til.ErrorTextAppearance</item>
         <item name="backgroundNormal">@drawable/til_background</item>
         <item name="backgroundError">@drawable/til_background_error</item>
         <item name="colorControlNormal">@android:color/transparent</item>

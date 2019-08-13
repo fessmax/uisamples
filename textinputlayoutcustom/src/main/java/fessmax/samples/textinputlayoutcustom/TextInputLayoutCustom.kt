@@ -14,7 +14,6 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.os.Build
-import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.util.TypedValue
@@ -41,7 +40,7 @@ class TextInputLayoutCustom : LinearLayout {
             android.R.attr.inputType to
                     fun(a: TypedArray, i: Int) { initInputType(a.getInt(i, InputType.TYPE_CLASS_TEXT)) },
 
-            R.attr.hintTextAppearance to
+            R.attr.hintCustomTextAppearance to
                     fun(a: TypedArray, i: Int) {
                         til_hint_text.setTextAppearance(
                             context,
@@ -65,7 +64,7 @@ class TextInputLayoutCustom : LinearLayout {
                         )
                     },
 
-            R.attr.errorTextAppearance to
+            R.attr.errorCustomTextAppearance to
                     fun(a: TypedArray, i: Int) {
                         til_error_text.setTextAppearance(
                             context,

@@ -13,11 +13,16 @@ import kotlinx.android.synthetic.main.til_layout.view.*
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
+import android.graphics.PorterDuff
 import android.os.Build
 import android.text.TextWatcher
 import android.util.Log
 import android.util.TypedValue
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import java.lang.reflect.AccessibleObject.setAccessible
+import java.lang.reflect.AccessibleObject.setAccessible
+import java.lang.reflect.AccessibleObject.setAccessible
 
 
 class TextInputLayoutCustom : LinearLayout {
@@ -91,6 +96,10 @@ class TextInputLayoutCustom : LinearLayout {
                             setTextCursorDrawable(a.getResourceId(i, View.NO_ID))
                         }
                     },
+            R.attr.selectionCustomTintColor to
+                    fun(a: TypedArray, i: Int) {
+                        setSelectionColor(a.getColor(i, View.NO_ID))
+                    },
 
             R.styleable.TextInputLayoutCustom[R.styleable.TextInputLayoutCustom_backgroundNormal] to
                     fun(a: TypedArray, i: Int) {
@@ -106,6 +115,29 @@ class TextInputLayoutCustom : LinearLayout {
         setupAttrs(context, attrs, map)
     }
 
+    private fun setSelectionColor(color: Int) {
+        try {
+            // Left
+            val fCursorDrawableRes = TextView::class.java.getDeclaredField("mTextSelectHandleRes")
+            fCursorDrawableRes.isAccessible = true
+            val mCursorDrawable = ContextCompat.getDrawable(context, fCursorDrawableRes.getInt(til_edit_text))
+
+            // Left
+            val fCursorDrawableLeftRes = TextView::class.java.getDeclaredField("mTextSelectHandleLeftRes")
+            fCursorDrawableLeftRes.isAccessible = true
+            val mCursorDrawableLeft = ContextCompat.getDrawable(context, fCursorDrawableLeftRes.getInt(til_edit_text))
+
+            // Right
+            val fCursorDrawableRightRes = TextView::class.java.getDeclaredField("mTextSelectHandleRightRes")
+            fCursorDrawableRightRes.isAccessible = true
+            val mCursorDrawableRight = ContextCompat.getDrawable(context, fCursorDrawableRightRes.getInt(til_edit_text))
+
+            mCursorDrawable?.setColorFilter(color, PorterDuff.Mode.SRC_IN)
+            mCursorDrawableLeft?.setColorFilter(color, PorterDuff.Mode.SRC_IN)
+            mCursorDrawableRight?.setColorFilter(color, PorterDuff.Mode.SRC_IN)
+        } catch (error: NoSuchFieldException) {
+        }
+    }
 
     private fun isPassword(): Boolean {
         return til_edit_text.inputType.and(InputType.TYPE_TEXT_VARIATION_PASSWORD) > 0

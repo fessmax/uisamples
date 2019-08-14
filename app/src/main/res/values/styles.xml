@@ -20,7 +20,7 @@
         <item name="android:textCursorDrawable">@drawable/black_cursor</item>
         <item name="errorDrawable">@drawable/ic_til_error</item>
         <item name="selectionCustomTintColor">@color/green</item>
-        <item name="passwordToggleDrawable">@drawable/bg_toggle</item>
+        <item name="passwordCustomToggleDrawable">@drawable/bg_toggle</item>
     </style>
 
     <style name="Til.TextAppearance" parent="TextAppearance.AppCompat">

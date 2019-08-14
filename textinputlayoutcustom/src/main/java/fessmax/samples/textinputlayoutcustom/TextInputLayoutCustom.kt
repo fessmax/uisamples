@@ -76,7 +76,7 @@ class TextInputLayoutCustom : LinearLayout {
                         )
                     },
 
-            R.attr.passwordToggleDrawable to
+            R.attr.passwordCustomToggleDrawable to
                     fun(a: TypedArray, i: Int) {
                         til_pass_toggle.setBackgroundResource(
                             a.getResourceId(

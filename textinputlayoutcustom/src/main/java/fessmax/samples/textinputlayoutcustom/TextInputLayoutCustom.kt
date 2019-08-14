@@ -22,6 +22,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import android.view.TouchDelegate
 import android.graphics.Rect
+import android.graphics.Typeface
 
 
 class TextInputLayoutCustom : LinearLayout {
@@ -161,14 +162,17 @@ class TextInputLayoutCustom : LinearLayout {
         }
     }
 
+    private var inputType: Int = InputType.TYPE_NULL
     private fun isPassword(): Boolean {
-        return til_edit_text.inputType.and(InputType.TYPE_TEXT_VARIATION_PASSWORD) > 0
+        return inputType.and(InputType.TYPE_TEXT_VARIATION_PASSWORD) > 0
     }
 
+
     private fun initInputType(inputType: Int) {
-        til_edit_text.inputType = inputType
+        this.inputType = inputType
         //check password inputType
         if (isPassword()) {
+            til_edit_text.transformationMethod = PasswordTransformationMethod.getInstance()
             til_pass_toggle.visibility = View.VISIBLE
             til_pass_toggle.setOnCheckedChangeListener { _, flag ->
                 til_edit_text.transformationMethod =

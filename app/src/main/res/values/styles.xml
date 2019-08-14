@@ -20,6 +20,7 @@
         <item name="android:textCursorDrawable">@drawable/black_cursor</item>
         <item name="errorDrawable">@drawable/ic_til_error</item>
         <item name="selectionCustomTintColor">@color/green</item>
+        <item name="passwordToggleDrawable">@drawable/bg_toggle</item>
     </style>
 
     <style name="Til.TextAppearance" parent="TextAppearance.AppCompat">
@@ -35,6 +36,7 @@
     <style name="Til.HintTextAppearance" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/til_hint</item>
         <item name="android:textSize">12sp</item>
+        <item name="android:lineSpacingExtra">0sp</item>
     </style>
 
     <style name="Til.HintFakeTextAppearance" parent="TextAppearance.AppCompat">

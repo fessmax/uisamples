@@ -10,42 +10,40 @@
 
 
     <fessmax.samples.textinputlayoutcustom.TextInputLayoutCustom
+            android:layout_gravity="center_vertical"
             style="@style/Til"
             android:id="@+id/tilc_email"
             android:inputType="textEmailAddress"
-            android:layout_margin="10dp"
             android:hint="Email"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
+            android:layout_height="wrap_content"/>
     <fessmax.samples.textinputlayoutcustom.TextInputLayoutCustom
             android:id="@+id/tilc_pass"
             style="@style/Til"
             android:hint="Password"
             android:inputType="textPassword"
-            android:layout_margin="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"/>
 
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
             android:orientation="horizontal">
 
-        <Button
+        <ImageView
+                android:background="@color/green"
+                android:layout_gravity="center_vertical"
                 android:id="@+id/check_email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Error email" />
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:text="Error email"/>
 
-        <Button
+        <ImageView
+                android:background="@color/red"
                 android:id="@+id/check_pass"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Error password" />
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:text="Error password"/>
 
     </LinearLayout>
 </LinearLayout>

@@ -7,6 +7,7 @@
         <attr name="backgroundError" format="integer"/>
         <attr name="hintFakeTextAppearance" format="integer"/>
         <attr name="errorDrawable" format="integer"/>
+        <attr name="passwordToggleDrawable" format="integer"/>
         <attr name="selectionCustomTintColor" format="integer"/>
     </declare-styleable>
 </resources>

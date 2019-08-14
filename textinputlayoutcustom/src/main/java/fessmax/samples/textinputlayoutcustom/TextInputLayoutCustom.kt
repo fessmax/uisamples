@@ -9,7 +9,7 @@ import android.text.method.PasswordTransformationMethod
 import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
-import kotlinx.android.synthetic.main.til_layout.view.*
+import kotlinx.android.synthetic.main.til_layout_relative.view.*
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
@@ -20,9 +20,8 @@ import android.util.Log
 import android.util.TypedValue
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import java.lang.reflect.AccessibleObject.setAccessible
-import java.lang.reflect.AccessibleObject.setAccessible
-import java.lang.reflect.AccessibleObject.setAccessible
+import android.view.TouchDelegate
+import android.graphics.Rect
 
 
 class TextInputLayoutCustom : LinearLayout {
@@ -36,7 +35,7 @@ class TextInputLayoutCustom : LinearLayout {
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
     @SuppressLint("ResourceType")
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        View.inflate(context, R.layout.til_layout, this)
+        View.inflate(context, R.layout.til_layout_relative, this)
 
         val map = mapOf(
             android.R.attr.hint to
@@ -47,7 +46,7 @@ class TextInputLayoutCustom : LinearLayout {
 
             R.attr.hintCustomTextAppearance to
                     fun(a: TypedArray, i: Int) {
-                        til_hint_text.setTextAppearance(
+                        til_hint_text_collapsed.setTextAppearance(
                             context,
                             a.getResourceId(i, View.NO_ID)
                         )
@@ -55,10 +54,10 @@ class TextInputLayoutCustom : LinearLayout {
 
             R.attr.hintFakeTextAppearance to
                     fun(a: TypedArray, i: Int) {
-                        til_hint_text_fake.setTextAppearance(
-                            context,
-                            a.getResourceId(i, View.NO_ID)
-                        )
+                        val resId = a.getResourceId(i, View.NO_ID)
+
+                        til_hint_text_expanded.setTextAppearance(context, resId)
+                        til_hint_text_fake.setTextAppearance(context, resId)
                     },
 
             android.R.attr.textAppearance to
@@ -74,6 +73,16 @@ class TextInputLayoutCustom : LinearLayout {
                         til_error_text.setTextAppearance(
                             context,
                             a.getResourceId(i, View.NO_ID)
+                        )
+                    },
+
+            R.attr.passwordToggleDrawable to
+                    fun(a: TypedArray, i: Int) {
+                        til_pass_toggle.setBackgroundResource(
+                            a.getResourceId(
+                                i,
+                                View.NO_ID
+                            )
                         )
                     },
 
@@ -113,6 +122,18 @@ class TextInputLayoutCustom : LinearLayout {
                     }
         )
         setupAttrs(context, attrs, map)
+
+        //increase touch area for toggle
+        val parent = til_pass_toggle.parent as View  // button: the view you want to enlarge hit area
+        parent.post {
+            val rect = Rect()
+            til_pass_toggle.getHitRect(rect)
+            rect.top -= 100    // increase top hit area
+            rect.left -= 100   // increase left hit area
+            rect.bottom += 100 // increase bottom hit area
+            rect.right += 100  // increase right hit area
+            parent.touchDelegate = TouchDelegate(rect, til_pass_toggle)
+        }
     }
 
     private fun setSelectionColor(color: Int) {
@@ -136,6 +157,7 @@ class TextInputLayoutCustom : LinearLayout {
             mCursorDrawableLeft?.setColorFilter(color, PorterDuff.Mode.SRC_IN)
             mCursorDrawableRight?.setColorFilter(color, PorterDuff.Mode.SRC_IN)
         } catch (error: NoSuchFieldException) {
+            Log.e("setSelectionColor", error.message, error)
         }
     }
 
@@ -204,8 +226,10 @@ class TextInputLayoutCustom : LinearLayout {
 
     private fun setHint(hint: String?) {
         hintText = hint
-        til_hint_text.text = hint
-        til_hint_text.visibility = View.INVISIBLE
+        til_hint_text_collapsed.text = hint
+        til_hint_text_collapsed.visibility = View.INVISIBLE
+        til_hint_text_expanded.text = hint
+        til_hint_text_expanded.visibility = View.INVISIBLE
         til_hint_text_fake.text = hint
         til_edit_text.setOnFocusChangeListener { view, b -> updateHintPosition(b) }
     }
@@ -222,8 +246,6 @@ class TextInputLayoutCustom : LinearLayout {
         }
     }
 
-    private var defaultHintPosition: Float = 0.0f
-    private var defaultHintFont: Float = 0.0f
     private fun animateHint(collapsing: Boolean) {
         val ANIMATION_DURATION = 200L
         val fromY: Float
@@ -231,21 +253,18 @@ class TextInputLayoutCustom : LinearLayout {
         val fromFont: Float
         val toFont: Float
 
-        if (defaultHintPosition == 0.0f) defaultHintPosition = til_hint_text_fake.y
-        if (defaultHintFont == 0.0f) defaultHintFont = til_hint_text_fake.textSize
-
         if (collapsing) {
             fromY = til_hint_text_fake.y
-            toY = til_hint_text.y + til_hint_text.paddingTop
+            toY = til_hint_text_collapsed.y + til_hint_text_collapsed.paddingTop
 
             fromFont = til_hint_text_fake.textSize
-            toFont = til_hint_text.textSize
+            toFont = til_hint_text_collapsed.textSize
         } else {
             fromY = til_hint_text_fake.y
-            toY = defaultHintPosition
+            toY = til_hint_text_expanded.y
 
             fromFont = til_hint_text_fake.textSize
-            toFont = defaultHintFont
+            toFont = til_hint_text_expanded.textSize
         }
 
         val moveAnimation =

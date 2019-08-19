@@ -25,7 +25,7 @@ import android.graphics.Rect
 import android.graphics.Typeface
 
 
-class TextInputLayoutCustom : LinearLayout {
+open class TextInputLayoutCustom : LinearLayout {
 
     private var backgroundNormalId: Int = View.NO_ID
     private var backgroundErrorId: Int = View.NO_ID

@@ -8,7 +8,6 @@
         <item name="colorAccent">@color/red</item>
     </style>
 
-
     <style name="Til">
         <item name="hintCustomTextAppearance">@style/Til.HintTextAppearance</item>
         <item name="hintFakeTextAppearance">@style/Til.HintFakeTextAppearance</item>

@@ -286,6 +286,11 @@ open class TextInputLayoutCustom : LinearLayout {
 
     }
 
+    override fun clearFocus() {
+        super.clearFocus()
+        til_edit_text.clearFocus()
+    }
+
     override fun setOnFocusChangeListener(listener: OnFocusChangeListener?) {
         til_edit_text.onFocusChangeListener = listener
     }

@@ -235,7 +235,8 @@ open class TextInputLayoutCustom : LinearLayout {
         til_hint_text_expanded.text = hint
         til_hint_text_expanded.visibility = View.INVISIBLE
         til_hint_text_fake.text = hint
-        til_edit_text.setOnFocusChangeListener { view, b -> updateHintPosition(b) }
+        onFocusChangeListener = null
+//        til_edit_text.setOnFocusChangeListener { view, b -> updateHintPosition(b) }
     }
 
     private fun updateHintPosition(onEditTextFocused: Boolean) {
@@ -292,7 +293,13 @@ open class TextInputLayoutCustom : LinearLayout {
     }
 
     override fun setOnFocusChangeListener(listener: OnFocusChangeListener?) {
-        til_edit_text.onFocusChangeListener = listener
+        til_edit_text.setOnFocusChangeListener(object : OnFocusChangeListener {
+            override fun onFocusChange(view: View?, hasFocus: Boolean) {
+                listener?.onFocusChange(view, hasFocus)
+                updateHintPosition(hasFocus)
+            }
+
+        })
     }
 
     fun addTextChangedListener(watcher: TextWatcher) {

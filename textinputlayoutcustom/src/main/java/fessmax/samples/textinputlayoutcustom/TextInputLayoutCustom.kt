@@ -183,7 +183,7 @@ open class TextInputLayoutCustom : LinearLayout {
         }
     }
 
-    fun setupAttrs(context: Context, attrs: AttributeSet?, map: Map<Int, (TypedArray, Int) -> Unit>) {
+    private fun setupAttrs(context: Context, attrs: AttributeSet?, map: Map<Int, (TypedArray, Int) -> Unit>) {
         // for android limitation, you need to sort all attrs you want to find in ascending order
         // then find attrs, otherwise some attrs cannot be found
         // https://developer.android.com/reference/android/content/res/Resources.Theme.html#obtainStyledAttributes(android.util.AttributeSet, int[], int, int)
@@ -284,6 +284,10 @@ open class TextInputLayoutCustom : LinearLayout {
 
         animatorSet.start()
 
+    }
+
+    override fun setOnFocusChangeListener(listener: OnFocusChangeListener?) {
+        til_edit_text.onFocusChangeListener = listener
     }
 
     fun addTextChangedListener(watcher: TextWatcher) {

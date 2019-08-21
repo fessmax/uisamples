@@ -35,7 +35,11 @@ open class TextInputLayoutCustom : LinearLayout {
     constructor(context: Context) : this(context, null, 0)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
     @SuppressLint("ResourceType")
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    ) {
         View.inflate(context, R.layout.til_layout_relative, this)
 
         val map = mapOf(
@@ -43,7 +47,14 @@ open class TextInputLayoutCustom : LinearLayout {
                     fun(a: TypedArray, i: Int) { setHint(a.getString(i)) },
 
             android.R.attr.inputType to
-                    fun(a: TypedArray, i: Int) { initInputType(a.getInt(i, InputType.TYPE_CLASS_TEXT)) },
+                    fun(a: TypedArray, i: Int) {
+                        initInputType(
+                            a.getInt(
+                                i,
+                                InputType.TYPE_CLASS_TEXT
+                            )
+                        )
+                    },
 
             R.attr.hintCustomTextAppearance to
                     fun(a: TypedArray, i: Int) {
@@ -88,7 +99,12 @@ open class TextInputLayoutCustom : LinearLayout {
                     },
 
             R.attr.errorDrawable to
-                    fun(a: TypedArray, i: Int) { til_error_icon.setImageDrawable(a.getDrawable(i)) },
+                    fun(
+                        a: TypedArray,
+                        i: Int
+                    ) {
+                        til_error_icon.setImageDrawable(a.getDrawable(i))
+                    },
 
             R.attr.colorControlNormal to
                     fun(a: TypedArray, i: Int) {
@@ -102,7 +118,10 @@ open class TextInputLayoutCustom : LinearLayout {
                         try {
                             til_edit_text.setTextCursorDrawable(a.getResourceId(i, View.NO_ID))
                         } catch (e: NoSuchMethodError) {
-                            Log.e("setTextCursorDrawable", "${e.message} \r\n replace with reflection")
+                            Log.e(
+                                "setTextCursorDrawable",
+                                "${e.message} \r\n replace with reflection"
+                            )
                             setTextCursorDrawable(a.getResourceId(i, View.NO_ID))
                         }
                     },
@@ -125,7 +144,8 @@ open class TextInputLayoutCustom : LinearLayout {
         setupAttrs(context, attrs, map)
 
         //increase touch area for toggle
-        val parent = til_pass_toggle.parent as View  // button: the view you want to enlarge hit area
+        val parent =
+            til_pass_toggle.parent as View  // button: the view you want to enlarge hit area
         parent.post {
             val rect = Rect()
             til_pass_toggle.getHitRect(rect)
@@ -142,17 +162,22 @@ open class TextInputLayoutCustom : LinearLayout {
             // Left
             val fCursorDrawableRes = TextView::class.java.getDeclaredField("mTextSelectHandleRes")
             fCursorDrawableRes.isAccessible = true
-            val mCursorDrawable = ContextCompat.getDrawable(context, fCursorDrawableRes.getInt(til_edit_text))
+            val mCursorDrawable =
+                ContextCompat.getDrawable(context, fCursorDrawableRes.getInt(til_edit_text))
 
             // Left
-            val fCursorDrawableLeftRes = TextView::class.java.getDeclaredField("mTextSelectHandleLeftRes")
+            val fCursorDrawableLeftRes =
+                TextView::class.java.getDeclaredField("mTextSelectHandleLeftRes")
             fCursorDrawableLeftRes.isAccessible = true
-            val mCursorDrawableLeft = ContextCompat.getDrawable(context, fCursorDrawableLeftRes.getInt(til_edit_text))
+            val mCursorDrawableLeft =
+                ContextCompat.getDrawable(context, fCursorDrawableLeftRes.getInt(til_edit_text))
 
             // Right
-            val fCursorDrawableRightRes = TextView::class.java.getDeclaredField("mTextSelectHandleRightRes")
+            val fCursorDrawableRightRes =
+                TextView::class.java.getDeclaredField("mTextSelectHandleRightRes")
             fCursorDrawableRightRes.isAccessible = true
-            val mCursorDrawableRight = ContextCompat.getDrawable(context, fCursorDrawableRightRes.getInt(til_edit_text))
+            val mCursorDrawableRight =
+                ContextCompat.getDrawable(context, fCursorDrawableRightRes.getInt(til_edit_text))
 
             mCursorDrawable?.setColorFilter(color, PorterDuff.Mode.SRC_IN)
             mCursorDrawableLeft?.setColorFilter(color, PorterDuff.Mode.SRC_IN)
@@ -183,7 +208,11 @@ open class TextInputLayoutCustom : LinearLayout {
         }
     }
 
-    private fun setupAttrs(context: Context, attrs: AttributeSet?, map: Map<Int, (TypedArray, Int) -> Unit>) {
+    private fun setupAttrs(
+        context: Context,
+        attrs: AttributeSet?,
+        map: Map<Int, (TypedArray, Int) -> Unit>
+    ) {
         // for android limitation, you need to sort all attrs you want to find in ascending order
         // then find attrs, otherwise some attrs cannot be found
         // https://developer.android.com/reference/android/content/res/Resources.Theme.html#obtainStyledAttributes(android.util.AttributeSet, int[], int, int)
@@ -273,8 +302,10 @@ open class TextInputLayoutCustom : LinearLayout {
         }
 
         val moveAnimation =
-            ObjectAnimator.ofFloat(til_hint_text_fake, View.Y, fromY, toY).apply { duration = ANIMATION_DURATION }
-        val fontSizeAnimation = ValueAnimator.ofFloat(fromFont, toFont).apply { duration = ANIMATION_DURATION }
+            ObjectAnimator.ofFloat(til_hint_text_fake, View.Y, fromY, toY)
+                .apply { duration = ANIMATION_DURATION }
+        val fontSizeAnimation =
+            ValueAnimator.ofFloat(fromFont, toFont).apply { duration = ANIMATION_DURATION }
         fontSizeAnimation.addUpdateListener {
             val value = it.animatedValue as Float
             til_hint_text_fake.setTextSize(TypedValue.COMPLEX_UNIT_PX, value)
@@ -312,6 +343,10 @@ open class TextInputLayoutCustom : LinearLayout {
 
     fun getText(): String {
         return til_edit_text.text.toString()
+    }
+
+    fun getHint(): String? {
+        return hintText
     }
 
     private fun setTextCursorDrawable(resId: Int) {
